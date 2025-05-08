@@ -1,0 +1,75 @@
+.main_login{
+    display: flex;
+    height: 100vh;
+}
+.banner{
+    background-image:url("../../assets/img/banner.png");
+    flex: 1;
+    background-position: center;
+    background-size: 425px;
+    background-repeat: no-repeat;
+    background-color: #b51d45;
+}
+
+.input_digit{
+    width: 356px;
+    border-left: none;
+    border-right: none;
+    border-top: none;   
+    margin-bottom: 70px;
+    border-width: 2px;
+}
+
+.section_login{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+}
+.img_banner{
+    width: 250px;
+    margin-bottom: 90px;
+}
+.form_login{
+    height: 45%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+}
+.campos_login{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    font-family: "poppins", sans-serif;
+    font-weight: 100;
+    font-style: normal;
+    font-size: 15px;
+    color: #A6A0A0;
+}
+.campos_input{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 40px;
+    margin-top: 20px;
+}
+.campos_input input {
+    height: 25px;
+    width: 350px;
+    padding: 0px 10px;
+    border-color: #00000045;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    outline: none;
+}
+
+@media screen and (max-width:768px) {
+    .banner {
+        display: none;
+    }
+}
