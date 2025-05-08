@@ -1,6 +1,5 @@
-import"./Listar.css"
-import Lixo from "../../assets/img/Lixo.png"
-import Lapis from "../../assets/img/Lapis.png"
+import"./ListarEvento.css"
+import comentarioEvento from "../../assets/img/comentarioEvento.png"
 
 const Listar = (props) =>{
     return(
@@ -15,18 +14,18 @@ const Listar = (props) =>{
                                 <th>{props.nome}</th>
                                 <th>{props.tipoEvento}</th>
                                 <th style={{display:props.visible}}></th>
-                                <th>Editar</ th>
-                                <th>Deletar</th>
+                                <td></td>
+                                <th>Comentários</ th>
+                                <th>Participar</th>
                             </tr>
                         </thead>
-                        
                         <tbody>
                                 <tr className="item_lista">
-                                    <td data-cell={props.nome}></td>
+                                    <td data-cell={props.nome}>Nome Evento</td>
+                                    <td data-cell={props.tipoEvento}>Tipo Evento</td>
                                     <td></td>
                                     <td></td>
-                                    <td data-cell="Editar"><img src={Lapis} alt="lapis" /></td>
-                                    <td data-cell="Excluir"><img src={Lixo} alt="lixo" /></td>
+                                    <td data-cell="Comentários"><img src={comentarioEvento} alt="comentarios" /></td>
                                 </tr>
                         </tbody>
                     </table>

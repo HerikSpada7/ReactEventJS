@@ -1,20 +1,16 @@
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
-import Listar from "../../components/listar/Listar";
+import ListarEvento from "../../components/listarEvento/ListarEvento";
 
 const Eventos = () =>{
     return(
         <>
         <Header/>
-        
-        <Listar
+        <ListarEvento
         tituloLista = "EVENTOS"
         nome= "Titulo"
         tipoEvento= "Tipo Evento"
-        Infos= "Comentários"
-        Infos2= "Participar"
         />
-
         <Footer/>
         </>
         
