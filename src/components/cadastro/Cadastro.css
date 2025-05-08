@@ -1,0 +1,52 @@
+.section_cadastro{
+    padding: 50px 0;
+
+    font-family: "poppins", sans-serif;
+    font-weight: 100;
+    font-style: normal;
+    font-size: small;
+}
+
+.form_cadastro{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.cadastro_pai{
+    display: flex;
+}
+.banner_cadastro{
+    margin-right: 250px;
+}
+
+.form_cadastro h1{
+    text-transform: uppercase;
+}
+.form_cadastro hr{
+    max-width: 200px;
+    width: 100%;
+    margin-top: 7px;
+    margin-bottom: 50px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #B51D44;
+}
+.campos_cadastros{
+    display: flex;
+    flex-direction: column;
+    margin-top: 60px;
+}
+
+.campo_cad_nome input,
+.campo_cad_tipo select{
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    outline: none;
+    padding: 0 3px;
+    width: 280px;
+    height: 45px;
+    margin-bottom: 60px;
+}

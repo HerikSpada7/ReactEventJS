@@ -15,7 +15,7 @@ const Login = () => {
                         </div>
 
                         <div className="campo_input">
-                            <input className="input_digit"type="senha" name="Senha" placeholder="Password"/>
+                            <input className="input_digit" type="senha" name="Senha" placeholder="Password"/>
                         </div>
 
                         <p>Esqueceu a senha?</p>
