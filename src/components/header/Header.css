@@ -24,3 +24,31 @@ header{
     align-items: center;
     width: 40px;
 }
+
+.logar{
+    margin-left: 250px;
+    width: 100px;
+    height: 35px;
+    border: none;
+    background-color: #B51D44;
+    cursor: pointer;
+    color: white;
+    border-radius: 5px;
+    font-size: small;
+}
+
+@media screen and (max-width: 768px) {
+    .header-header img{
+        height: 15px;
+    }
+    .header-header{
+        justify-content: center;
+        align-items: center;
+    }
+    .link-header{
+        display: none;
+    }
+    .navas_header{
+        display: none;
+    }
+}

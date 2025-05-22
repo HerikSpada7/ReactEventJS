@@ -1,16 +1,31 @@
 .listagem {
-    min-height: calc(100vh - (75px + 252px + 40px));
-    display: flex;
+    /* min-height: calc(100vh - (75px + 252px + 40px)); */
+    /* height: 370px; */
+
+    /* display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center; */
+
     padding: 40px 0;
     background-color: #B51D44;
-    color: white;
+    color: #ffffff;
 
     font-family: "poppins", sans-serif;
     font-weight: 100;
     font-style: normal;
     
+}   
+.div_tabela{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* margin-bottom: 10px; */
+    
+}
+
+.tabela .table_cabecalho th{
+    border-bottom: 1px solid #ffffff;
+    margin-bottom: 20px;
 }
 
 .listagem h1 {
@@ -26,33 +41,60 @@
     border-style: solid;
     border-color: #ffffff;
 }
-
 .item_lista img {
     height: 15px;
 }
-
-.tabela {
-    width: 900px;
-    margin-top: 30px;
-}
-
-
-.tabela table {
-    width: 900px;
+.tabela table{
+    width: 100%;
     border-collapse: collapse;
+    
 }
-
-
-.item_lista td {
-    padding: 10px 30px 10px 29px;
-}
-
-.table_cabecalho {
-    border-bottom: solid 1px #ffffff;
-}
-
-.item_lista {
+.tabela{
+    width: 100%;
+    max-width: 1000px;
+    margin-top: 30px;
 
     text-align: center;
-    border-bottom: solid 1px #ffffff;
+    /* border-bottom:1px solid #ffffff; */
+    /* margin-left: -60px; */
+}
+.tabela td{
+    border-bottom:1px solid #ffffff;
+}
+
+.tabela .table_cabecalho :first-child{
+    width:199px;
+}
+
+.tabela .table_cabecalho :nth-child(2){
+    width: 750px;
+    text-align: start;
+}
+.tabela .item_lista :nth-child(3){
+    width: 110px;
+}
+.tabela .item_lista :nth-child(2){
+    width: 550px;
+    text-align: start;
+}
+ .tabela .table_cabecalho {
+    border-bottom: 1px solid #ffffff;
+    width: 100px;
+    margin-top: 40px;
+ }
+.item_lista td {
+    padding: 20px 0 10px 0;
+    border-collapse: collapse;
+    
+}
+@media screen and (max-width:728px) {
+    .tabela{
+        font-size: 10px; 
+    }
+    .tabela .item_lista :nth-child(3){
+        width: 110px;
+    }
+    .listagem h1 {
+        font-size: large;
+    }  
 }
