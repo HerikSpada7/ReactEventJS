@@ -38,7 +38,6 @@ const CadastroEvento = () => {
     async function listarTipoEvento() {
         try {
             const resposta = await api.get("TiposEventos");
-
             setlistaTipoEvento(resposta.data)
         } catch (error) {
             console.log(error);
@@ -53,9 +52,9 @@ const CadastroEvento = () => {
                     {
                         NomeEvento: evento,
                         DataEvento: dataEvento,
-                        Descricao: descricao,
                         IdTipoEvento: tipoEvento,
-                        IdInstituicao: instituicoes
+                        IdInstituicao: instituicoes,
+                        Descricao: descricao
                     });    
                 console.log(resposta);
             } catch (error) {

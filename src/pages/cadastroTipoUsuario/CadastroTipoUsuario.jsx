@@ -38,14 +38,12 @@ const CadastroTipoUsuario = () => {
 
         if (tiposUsuarios.trim() !== "") {
             try {
-                await api.post("tiposUsuarios", { TituloTipoUsuario: tiposUsuarios });
+                await api.post("tipoUsuarios", { tituloTipoUsuario: tiposUsuarios });
 
                 alertar("success", "Cadastro realizado com sucesso");
                 setTiposUsuario("");
                 listarTipoUsuario();
             } catch (error) {
-                console.log(error);
-                
                 alertar("error", "Erro! Entre em contato com o suporte!");
             }
         } else {
@@ -55,7 +53,7 @@ const CadastroTipoUsuario = () => {
 
     async function listarTipoUsuario() {
         try {
-            const resposta = await api.get("TiposUsuarios");
+            const resposta = await api.get("TipoUsuarios");
             setListaTipoUsuario(resposta.data);
         } catch (error) {
             console.log(console.error);
@@ -74,12 +72,12 @@ const CadastroTipoUsuario = () => {
             cancelButtonText: 'Cancelar',
         }).then(async (result) => {
             if (result.isConfirmed) {
-                await api.delete(`tiposUsuarios/${id.idTipoUsuario}`);
-                alertar("success", "TipoUsuario Excluido!");
+                await api.delete(`tipoUsuarios/${id.idTipoUsuario}`);
+                alertar("success", "Tipo usuario excluido!");
             }
         }).catch(error => {
             console.log(error);
-            alertar("error", "Erro ao Excluir!");
+            alertar("error", "Erro ao excluir!");
         })
     }
 
@@ -136,7 +134,6 @@ const CadastroTipoUsuario = () => {
 
 
                     funcCadastro={cadastrarTipoUsuario}
-                    valorInput={tiposUsuarios}
                     setValorInput={setTiposUsuario}
                 />
 
@@ -145,12 +142,12 @@ const CadastroTipoUsuario = () => {
                     titulo="Titulo"
                     lista={listaTipoUsuario}
                     visibilidade="none"
+                    visibilidade2="none"
 
-                    tipoLista="tiposUsuarios"
+                    tipoLista="TipoUsuarios"
                     
                     funcDeletar={deletarTipoUsuario}
                     funcEditar={editarTipoUsuario}
-                    visibilidade2="none"
                 />
             </main>
             <Footer />
