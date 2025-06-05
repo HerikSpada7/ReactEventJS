@@ -7,9 +7,10 @@ const Toggle = (props) => {
             <div className="teste">
                 <label  className="switch">
                     <input  type="checkbox"
-                            checked={props.presenca} />
+                            checked={props.presenca}
+                            onChange={props.manipular} />
                         <span className="slider round"></span>
-                </label>    w
+                </label>
             </div>
         </>
     )

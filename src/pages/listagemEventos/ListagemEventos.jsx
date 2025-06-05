@@ -10,47 +10,43 @@ import Footer from "../../components/footer/Footer";
 import Comentario from "../../assets/img/Comentario.svg"
 import Informacao from "../../assets/img/Informacao.svg"
 import Toggle from "../../components/toggle/Toggle";
+import Swal from "sweetalert2";
 
 const ListagemEventos = () => {
-    const [listaEventos, setListaEventos] = useState([]);
+    const [listaEventos, setListaEvento] = useState([]);
     const [tipoModal, setTipoModal] = useState("");
     const [dadosModal, setDadosModal] = useState({});
     const [modalAberto, setModalAberto] = useState(false);
     const [usuarioId, setUsuarioId] = useState("be45dd69-63a9-423f-9acb-bfbdeee1d646")
 
-    async function listarEventos() {
+    const [filtroData, setFiltroData] = useState("")
+
+ async function listarEventos() {
         try {
             const resposta = await api.get("Eventos");
             const todosOsEventos = resposta.data;
-            
-            const respostaPresenca = await api.get("PresencasEventos/ListarMinhas/"+usuarioId)  
-            const minhasPresencas = respostaPresenca.data;
+            const respostaPresencas = await api.get("Presencas/ListarMinhas/" + usuarioId)
+            const minhasPresencas = respostaPresencas.data;
 
-            const eventosComPresencas = todosOsEventos.map((atualEvento) => {
+            const eventosComPresencas = todosOsEventos.map((atualEvento) => { 
                 const presenca = minhasPresencas.find(p => p.idEvento === atualEvento.idEvento);
                 return{
                     ...atualEvento,
-                    possuiPresenca: presenca?.situacao === true, idPresenca: presenca?.idPresencaEvento || null
+
+                    possuiPresenca: presenca?.situacao === true,
+                    idPresenca: presenca?.idPresencaEvento || null
                 }
             })
 
-            setListaEventos(eventosComPresencas);
+            setListaEvento(eventosComPresencas)
 
-            console.log(`Informações de todos os eventos:${todosOsEventos}`)
-
-            console.log(`Informações de eventos com presenca:${minhasPresencas}`)
-
-            console.log(`Informações de todos os eventos com presenca:${eventosComPresencas}`)
-
+            
         } catch (error) {
-            console.log(error);
+            console.error("Erro ao buscar eventos:", error);
         }
     }
 
-    useEffect(() => {
-        listarEventos();
-    }, [])
-
+    
     function abrirModal(tipo, dados) {
         //Tipo de modal
         //dados
@@ -58,20 +54,54 @@ const ListagemEventos = () => {
         setTipoModal(tipo);
         setDadosModal(dados);
     }
-
+    
     function fecharModal(){
         setModalAberto(false)
         setDadosModal({})
         setTipoModal("")
     }
-
-    async function manipularPresenca(){
+    
+    async function manipularPresenca(idEvento, presenca, idPresenca){
         try {
-            
+            if(presenca && idPresenca != ""){
+                await api.put(`Presencas/${idPresenca}`, { situacao: false})
+                Swal.fire('Removido', 'Sua presença foi removida.', 'success');
+
+            }else if(idPresenca != ""){
+                await api.put(`Presencas/${idPresenca}`, { situacao: true});
+                Swal.fire('Confirmado!', 'Sua presença foi confirmada.', 'success')
+
+            }else{
+                await api.post("Presencas", { situacao: true, idUsuario: usuarioId, idEvento: idEvento})
+            }
         } catch (error) {
-            console.log(error)
+            Swal.fire('Error!', 'Não foi possivel atualizar a sua presença', 'error')
         }
     }
+
+    function filtrarEventos(){
+        const hoje = new Date();
+
+
+        return listaEventos.filter(evento => {
+            
+        const dataEvento = new Date(evento.dataEvento);
+
+        if(filtroData.includes("todos")) return true;
+
+        if(filtroData.includes("futuros") && dataEvento > hoje) return true;
+
+        if(filtroData.includes("passados") && dataEvento < hoje) return true;
+
+        return false;
+
+        });
+        
+    }
+    
+    useEffect(() => {
+        listarEventos();
+    }, [])
 
     return (
         <>
@@ -87,9 +117,10 @@ const ListagemEventos = () => {
                     </div>
 
                     <div className="listagem_eventos">
-                        <select name="eventos">
-                            <option value="" disabled selected>Todos os Eventos</option>
-                            <option value="">xxxxxxxx</option>
+                        <select onChange={(e) => setFiltroData([e.target.value])}>
+                            <option value="todos" selected>Todos os eventos</option>
+                            <option value="futuros">Somente futuros</option>
+                            <option value="passados">Somente passados</option>
                         </select>
                     </div>
 
@@ -126,11 +157,14 @@ const ListagemEventos = () => {
                                                     onClick={() => abrirModal("comentarios", { idEvento: item.idEvento })}
                                                 />
                                             </td>
-
+                                            
                                             <td data-cell="Presenca">
+
                                             <Toggle 
                                             presenca={item.possuiPresenca}
+                                            manipular={() => manipularPresenca(item.idEvento, item.possuiPresenca, item.idPresenca)}
                                             />
+
                                             </td>
                                         </tr>
                                     ))
