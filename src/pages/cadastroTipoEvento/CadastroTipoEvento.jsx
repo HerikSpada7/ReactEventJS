@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import api from "../../services/Services";
 
+//Importar o seu SweetAlert
 import Swal from 'sweetalert2';
 
 import Cadastro from "../../components/cadastro/Cadastro";
@@ -123,10 +124,10 @@ const CadastroTipoEvento = () => {
                     campo_placeholder="Titulo"
 
                     visibilidade="none"
-                    visibili_data="none"
-                    visibili_tipo_evento="none"
-                    visibili_instituicao="none"
-                    visibili_descricao="none"
+                    visibilidade_data="none"
+                    visibilidade_tp_evento="none"
+                    visibilidade_instituicao="none"
+                    visibilidade_descricao="none"
 
                     botao="Cadastrar"
                     banner_img={Imagem}

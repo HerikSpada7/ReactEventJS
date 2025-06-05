@@ -1,5 +1,5 @@
 import './App.css';
-import Rotas from './routes/Routes.js';
+import Rotas from './Routes/Routes.js';
 
 function App() {
   return (

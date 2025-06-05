@@ -1,13 +1,15 @@
-import "./Check.css"
+import React from "react";
+import "./Toggle.css"
 
-const Toggle = () => {
+const Toggle = (props) => {
     return (
         <>
             <div className="teste">
                 <label  className="switch">
-                    <input  type="checkbox" />
+                    <input  type="checkbox"
+                            checked={props.presenca} />
                         <span className="slider round"></span>
-                </label>
+                </label>    w
             </div>
         </>
     )

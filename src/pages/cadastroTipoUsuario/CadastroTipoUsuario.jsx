@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 import Cadastro from "../../components/cadastro/Cadastro";
 import Footer from "../../components/footer/Footer";
 import Header from "../../components/header/Header";
-import Imagem from "../../assets/img/CadastroTipoUsuario.svg"
+import CadastroUser from "../../../src/assets/img/cadastroUser.svg"
 import Lista from "../../components/lista/Lista";
 
 const CadastroTipoUsuario = () => {
@@ -38,13 +38,13 @@ const CadastroTipoUsuario = () => {
 
         if (tiposUsuarios.trim() !== "") {
             try {
-                await api.post("tipoUsuarios", { tituloTipoUsuario: tiposUsuarios });
+                await api.post("TiposUsuarios", { TituloTipoUsuario: tiposUsuarios });
 
                 alertar("success", "Cadastro realizado com sucesso");
                 setTiposUsuario("");
-                listarTipoUsuario();
             } catch (error) {
                 alertar("error", "Erro! Entre em contato com o suporte!");
+                console.log(error);
             }
         } else {
             alertar("warning", "Preencha o campo!");
@@ -53,7 +53,7 @@ const CadastroTipoUsuario = () => {
 
     async function listarTipoUsuario() {
         try {
-            const resposta = await api.get("TipoUsuarios");
+            const resposta = await api.get("TiposUsuarios");
             setListaTipoUsuario(resposta.data);
         } catch (error) {
             console.log(console.error);
@@ -72,12 +72,12 @@ const CadastroTipoUsuario = () => {
             cancelButtonText: 'Cancelar',
         }).then(async (result) => {
             if (result.isConfirmed) {
-                await api.delete(`tipoUsuarios/${id.idTipoUsuario}`);
+                await api.delete(`tiposUsuarios/${id.idTipoUsuario}`);
                 alertar("success", "Tipo usuario excluido!");
             }
         }).catch(error => {
             console.log(error);
-            alertar("error", "Erro ao excluir!");
+            alertar("error", "Erro ao Excluir!");
         })
     }
 
@@ -100,11 +100,11 @@ const CadastroTipoUsuario = () => {
             try {
                 await api.put(`tiposUsuarios/${tiposUsuarios.idTipoUsuario}`,
                     { tituloTipoUsuario: novoTipoUsuario });
-                alertar("success", "Tipo Evento Modificado!")
+                alertar("success", "Tipo evento modificado!")
             } catch (error) {
 
             }
-            Swal.fire(`Seu novo Tipo Evento: ${novoTipoUsuario}`);
+            Swal.fire(`Seu novo tipo evento: ${novoTipoUsuario}`);
         }
     }
 
@@ -124,30 +124,31 @@ const CadastroTipoUsuario = () => {
                     titulo_cadastro="Cadastro de Tipo Usuário"
                     campo_placeholder="Titulo"
                     botao="Cadastrar"
-                    banner_img={Imagem}
+                    banner_img={CadastroUser}
 
                     visibilidade="none"
-                    visibili_data="none"
-                    visibili_tipo_evento="none"
-                    visibili_instituicao="none"
-                    visibili_descricao="none"
+                    visibilidade_data="none"
+                    visibilidade_tp_evento="none"
+                    visibilidade_instituicao="none"
+                    visibilidade_descricao="none"
 
 
                     funcCadastro={cadastrarTipoUsuario}
+                    valorInput={tiposUsuarios}
                     setValorInput={setTiposUsuario}
                 />
 
                 <Lista
                     titulo_lista="Tipo Usuário"
                     titulo="Titulo"
-                    lista={listaTipoUsuario}
                     visibilidade="none"
-                    visibilidade2="none"
 
-                    tipoLista="TipoUsuarios"
-                    
+                    tipoLista="tiposUsuarios"
+                    lista={listaTipoUsuario}
+
                     funcDeletar={deletarTipoUsuario}
                     funcEditar={editarTipoUsuario}
+                    visibilidade2="none"
                 />
             </main>
             <Footer />

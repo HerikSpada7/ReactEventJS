@@ -18,6 +18,7 @@ const Cadastro = (props) => {
 
                     <div className="campo_cad_nome">
                         <input
+                            type="text"
                             placeholder={props.campo_placeholder}
                             value={props.valorInput}
                             onChange={(e) => props.setValorInput(e.target.value)}
@@ -26,40 +27,32 @@ const Cadastro = (props) => {
 
                     <div className="campo_cad_nome">
                         <input
-                            style={{ display: props.visibili_data }}
+                            style={{ display: props.visibilidade_data }}
                             type="date"
                             value={props.valorData}
                             onChange={(e) => props.setValorData(e.target.value)}
                         />
                     </div>
 
-                    <div className="campo_cad_eventos" style={{ display: props.visibili_tipo_evento }}>
+                    <div className="campo_cad_eventos" style={{ display: props.visibilidade_tp_evento }}>
                         <select name="Tipo Evento"
-                            value={props.valorTipoEvento}
-                            onChange={(e) => props.setValorTipoEvento(e.target.value)}
+                            value={props.valorTpEvento}
+                            onChange={(e) => props.setValorTpEvento(e.target.value)}
                         >
                             <option disabled value="">Tipo Evento</option>
                             {props.lista &&
                                 props.lista.length > 0 &&
-                                props.lista.map((itemTipoEvento) =>
-                                    <option
-                                        key={itemTipoEvento.idTipoEvento}
-                                        value={itemTipoEvento.idTipoEvento}
-                                    >
-                                        {itemTipoEvento.tituloTipoEvento}
-                                    </option>
+                                props.lista.map((itemTpEvento) =>
+                                    <option value={itemTpEvento.idTipoEvento}>{itemTpEvento.tituloTipoEvento}</option>
                                 )}
-
                         </select>
                     </div>
 
-                    <div className="campo_cad_eventos" style={{ display: props.visibili_instituicao }}>
+                    <div className="campo_cad_eventos" style={{ display: props.visibilidade_instituicao }}>
                         <select name="Instituicao"
                             value={props.valorInstituicao}
                             onChange={(e) => props.setValorInstituicao(e.target.value)}
                         >
-                            <option selected>Murkoff Corporation</option>
-                            <option selected>QG World Marshall</option>
                             <option selected>Senai</option>
                         </select>
                     </div>
@@ -69,7 +62,7 @@ const Cadastro = (props) => {
                             type="text"
                             placeholder={props.campo_descricao}
                             value={props.valorInputDescricao}
-                            style={{ display: props.visibili_descricao }}
+                            style={{ display: props.visibilidade_descricao }}
 
                             onChange={(e) => props.setValorInputDescricao(e.target.value)}
                         />

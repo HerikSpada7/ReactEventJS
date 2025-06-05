@@ -27,13 +27,13 @@ const Lista = (props) => {
                             {props.lista && props.lista.length > 0 ? (
                                 props.lista.map((item) => (
                                     <tr className="item_lista"
-                                        key={props.tipoLista == "TiposEventos" ? item.idTipoEvento : item.IdTipoUsuario ? item.idEvento : item.idEvento}
+                                        key={props.tipoLista == "TiposEventos" ? item.idTipoEvento : (props.tipoLista == "tipoUsuarios" ? item.idTipoUsuario : item.idEvento)}
                                     >
-                                        <td data-cell="Nome" style={{display: props.tipoEvento}}>{props.tipoLista == "TiposEventos" ? item.tituloTipoEvento : item.tituloTipoUsuario ? item.nomeEvento : item.nomeEvento}</td>
+                                        <td data-cell="Nome" style={{display: props.tipoEvento}}>{props.tipoLista == "TiposEventos" ? item.tituloTipoEvento : (props.tipoLista == "tiposUsuarios" ? item.tituloTipoUsuario : item.nomeEvento)}</td>
 
-                                        <td data-cell="Tipo Evento" style={{ display: props.visibilidade }}>{ new Date(item.dataEvento).toLocaleDateString('pt-BR')}</td>
+                                        <td data-cell="Data Evento" style={{ display: props.visibilidade }}>{ new Date(item.dataEvento).toLocaleDateString('pt-BR')}</td>
 
-                                        <td data-cell="Data Evento" style={{ display: props.visibilidade }}>{item.tiposEvento?.tituloTipoEvento}</td>
+                                        <td data-cell="Tipo Evento" style={{ display: props.visibilidade }}>{item.tiposEvento?.tituloTipoEvento}</td>
 
                                         <td data-cell="Editar" className="botao_edicao">
                                             <img src={Editar}
@@ -50,7 +50,7 @@ const Lista = (props) => {
                                         <td data-cell="Descrição" className="botao_edicao" style={{display: props.visibilidade2}}>
                                             <img src={Descricao}
                                                 alt="Exclamação"
-                                                onClick={() => props.funcDescricao(item)}
+                                                onClick={() => props.funcDescricao(item.idEvento)}
                                             />
                                         </td>
                                     </tr>

@@ -10,17 +10,15 @@ const Rotas = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<Home/>} exact/>
+                <Route path="/" element={<Login/>} exact/>
 
                 <Route path="/Home" element={<Home/>} exact/>
-
-                <Route path="/Login" element={<Login/>} exact/>
 
                 <Route path="/TipoEvento" element={<CadastroTipoEvento/>}/>
 
                 <Route path="/Evento" element={<CadastroEvento/>}/>
 
-                <Route path="/ListagemDeEvento" element={<ListagemEventos/>}/>
+                <Route path="/Listagem" element={<ListagemEventos/>}/>
 
                 <Route path="/TipoUsuario" element={<CadastroTipoUsuario/>}/>
             </Routes>
