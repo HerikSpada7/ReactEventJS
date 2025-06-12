@@ -1,120 +1,85 @@
 .listagem {
-    background-color: #b51d44;
-    min-height: calc(100vh - (75px + 399px + 40px));
+    /* height: 370px; */
+
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 40px 0;
+
+    background-color: #B51D44;
+    color: white;
+
 }
 
 .listagem h1 {
+    text-transform: uppercase;
     color: white;
-    font-size: 20px;
-    font-weight: 500;
+    font-size: 19px;
 }
 
-.linha_titulo {
-    max-width: 150px;
+.listagem hr {
+    max-width: 200px;
     width: 100%;
     border-style: solid;
-    border-width: 1px;
+    border-top-width: 1px;
     border-color: white;
     margin-top: 5px;
-    margin-bottom: 20px;
+    color: white;
 }
 
 .item_lista img {
-    height: 15px;
+    height: 20px;
 }
 
 .tabela {
-    width: 100%;
-    margin-top: 30px;
-}
+    width: 80%;
+    margin-top: 40px;
 
-.tabela table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.tabela_cabecalho :first-child {
-    width: 300px;
-}
-
-.tabela_cabecalho :nth-child(2) {
-    width: 200px;
-}
-
-.tabela_cabecalho :nth-child(3) {
-    width: 200px;
-}
-
-.tabela_cabecalho th {
-    width: 100px;
-    font-weight: 500;
-}
-
-.item_lista td {
-    padding: 20px 0 10px 0;
-    color: white;
-}
-
-.item_lista {
     text-align: center;
-    border-bottom: solid 1px #73061B20;
-    justify-content: flex-start;
+    border-bottom: 1px solid white;
+
+    margin-left: -60px;
+  
+
+}
+
+
+.tabela .table_cabecalho :first-child {
+    width: 300px;
+    
+}
+
+.tabela .table_cabecalho :nth-child(2) {
+    /* width: 750px; */
+    text-align: start;
+}
+
+.tabela .table_cabecalho th {
+    border-bottom: 1px solid white;
+    width: 600px;
+    margin-top: 40px;
+    
 }
 
 .item_lista td {
-    font-weight: 400;
+    padding: 30px 5px 30px;
+    
 }
 
-.tabela_cabecalho th {
-    color: white;
-    font-size: small;
-    padding-bottom: 5px;
+.tabela .item_lista :nth-child(2){
+    text-align: start;
+    
 }
 
-.tabela_cabecalho {
-    border-bottom: white 1px solid;
-}
-
-.item_lista {
-    border-bottom: white 1px solid;
-}
-
-@media screen and (max-width: 768px) {
-
-    .tabela thead {
-        display: none;
+@media screen and (max-width:728px) {
+    .tabela{
+        font-size: 10px; 
     }
-
-
-    .item_lista td {
-        display: grid;
-        text-align: left;
-        padding: 10px 10px 10px 0;
-        grid-template-columns: 10ch auto;
-
+    .tabela .item_lista :nth-child(3){
+        width: 110px;
     }
-
-
-    .item_lista td::before {
-        content: attr(data-cell) ":";
-        font-weight: 600;
-        width: 80px;
-        text-align: left;
+    .listagem h1 {
+        font-size: large;
     }
-
-    .item_lista td:last-child {
-        margin-bottom: 24px;
-    }
-
-    .item_lista td:first-child {
-        margin-top: 24px;
-    }
-}
-
-.botao_edicao img{
-    cursor: pointer;
+    
 }

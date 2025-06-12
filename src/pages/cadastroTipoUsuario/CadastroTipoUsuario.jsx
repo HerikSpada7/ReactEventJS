@@ -1,19 +1,17 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import api from "../../services/Services";
+import Swal from 'sweetalert2'
 
-//Importar o seu SweetAlert
-import Swal from 'sweetalert2';
 
-import Cadastro from "../../components/cadastro/Cadastro";
-import Footer from "../../components/footer/Footer";
-import Header from "../../components/header/Header";
-import CadastroUser from "../../../src/assets/img/cadastroUser.svg"
-import Lista from "../../components/lista/Lista";
+import Cadastro from "../../components/cadastro/Cadastro"
+import Footer from "../../components/footer/Footer"
+import Header from "../../components/header/Header"
+import Lista from "../../components/lista/Lista"
+import Banner from "../../assets/img/cadastroUser.svg"
 
-const CadastroTipoUsuario = () => {
-    const [listaTipoUsuario, setListaTipoUsuario] = useState([])
+const CadastrarTipoDeUsuario = () => {
     const [tiposUsuarios, setTiposUsuario] = useState("");
-
+    const [listaTipoUsuario, setListaTipoUsuario] = useState([])
 
     function alertar(icone, mensagem) {
         const Toast = Swal.mixin({
@@ -35,59 +33,49 @@ const CadastroTipoUsuario = () => {
 
     async function cadastrarTipoUsuario(e) {
         e.preventDefault();
+        if (tiposUsuarios.trim() != "") {
 
-        if (tiposUsuarios.trim() !== "") {
             try {
-                await api.post("TiposUsuarios", { TituloTipoUsuario: tiposUsuarios });
-
-                alertar("success", "Cadastro realizado com sucesso");
-                setTiposUsuario("");
+                await api.post("TipoUsuarios", { tituloTipoUsuario: tiposUsuarios });
+                alertar("success", "Cadastro realizado com sucesso!")
+                setTiposUsuario("")
             } catch (error) {
-                alertar("error", "Erro! Entre em contato com o suporte!");
-                console.log(error);
+                alertar("error", "Erro! entre em contato com o suporte")
             }
         } else {
-            alertar("warning", "Preencha o campo!");
+            alertar("error", "Preencha o campo vazio")
         }
+
     }
 
     async function listarTipoUsuario() {
         try {
-            const resposta = await api.get("TiposUsuarios");
+            const resposta = await api.get("TipoUsuarios");
+
+
             setListaTipoUsuario(resposta.data);
+            console.log(resposta.data);
+
         } catch (error) {
-            console.log(console.error);
+            console.log(error);
         }
     }
 
-    async function deletarTipoUsuario(id) {
-        Swal.fire({
-            title: 'Tem Certeza?',
-            text: "Essa ação não poderá ser desfeita!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#B51D44',
-            cancelButtonColor: '#000000',
-            confirmButtonText: 'Sim, apagar!',
-            cancelButtonText: 'Cancelar',
-        }).then(async (result) => {
-            if (result.isConfirmed) {
-                await api.delete(`tiposUsuarios/${id.idTipoUsuario}`);
-                alertar("success", "Tipo usuario excluido!");
-            }
-        }).catch(error => {
-            console.log(error);
-            alertar("error", "Erro ao Excluir!");
-        })
+    async function removerTipoUsuario(id) {
+        try {
+            const excluirTipoUsuario = await api.delete(`TipoUsuarios/${id.idTipoUsuario}`)
+            setListaTipoUsuario(excluirTipoUsuario.data)
+        }
+        catch (error) {
+            console.log(error)
+        }
     }
 
     async function editarTipoUsuario(tiposUsuarios) {
         const { value: novoTipoUsuario } = await Swal.fire({
-            title: "Modifique seu Tipo Usuario",
+            title: "Modifique seu Tipo de Usuario",
             input: "text",
-            confirmButtonColor: '#B51D44',
-            cancelButtonColor: '#000000',
-            inputLabel: "Novo Tipo Usuario",
+            inputLabel: "Novo Tipo Evento",
             inputValue: tiposUsuarios.tituloTipoUsuario,
             showCancelButton: true,
             inputValidator: (value) => {
@@ -96,23 +84,21 @@ const CadastroTipoUsuario = () => {
                 }
             }
         });
+
         if (novoTipoUsuario) {
             try {
-                await api.put(`tiposUsuarios/${tiposUsuarios.idTipoUsuario}`,
-                    { tituloTipoUsuario: novoTipoUsuario });
-                alertar("success", "Tipo evento modificado!")
+                api.put(`TipoUsuarios/${tiposUsuarios.idTipoUsuario}`, { tituloTipoUsuario: novoTipoUsuario })
+                Swal.fire(`O Tipo novo é ${novoTipoUsuario}`);
+                listaTipoUsuario();
             } catch (error) {
 
             }
-            Swal.fire(`Seu novo tipo evento: ${novoTipoUsuario}`);
         }
     }
 
     useEffect(() => {
         listarTipoUsuario();
     }, [listaTipoUsuario])
-
-
     return (
         <>
             <Header
@@ -124,7 +110,7 @@ const CadastroTipoUsuario = () => {
                     titulo_cadastro="Cadastro de Tipo Usuário"
                     campo_placeholder="Titulo"
                     botao="Cadastrar"
-                    banner_img={CadastroUser}
+                    banner_img={Banner}
 
                     visibilidade="none"
                     visibilidade_data="none"
@@ -146,7 +132,7 @@ const CadastroTipoUsuario = () => {
                     tipoLista="tiposUsuarios"
                     lista={listaTipoUsuario}
 
-                    funcDeletar={deletarTipoUsuario}
+                    funcDeletar={removerTipoUsuario}
                     funcEditar={editarTipoUsuario}
                     visibilidade2="none"
                 />
@@ -156,4 +142,4 @@ const CadastroTipoUsuario = () => {
     )
 }
 
-export default CadastroTipoUsuario;
+export default CadastrarTipoDeUsuario;

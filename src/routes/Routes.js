@@ -1,26 +1,38 @@
-import { BrowserRouter, Route, Routes } from "react-router";
-import Login from "../pages/login/Login";
-import Home from "../pages/home/Home";
-import ListagemEventos from "../pages/listagemEventos/ListagemEventos";
-import CadastroEvento from "../pages/cadastroEvento/CadastroEvento";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router";
+import { useAuth } from "../contexts/AuthContext";
+import Login from "../pages/login/Login"
 import CadastroTipoEvento from "../pages/cadastroTipoEvento/CadastroTipoEvento";
-import CadastroTipoUsuario from "../pages/cadastroTipoUsuario/CadastroTipoUsuario";
+import CadastroEvento from "../pages/cadastroEvento/CadastroEvento"
+import CadastroTipoUsuario from "../pages/cadastroTipoUsuario/CadastroTipoUsuario"
+import Home from "../pages/home/Home"
+import ListagemEventos from "../pages/listagemEventos/ListagemEventos";
+import Lista from "../components/lista/Lista";
+
+const Privado = (props) => {
+    const { usuario } = useAuth();
+
+    if(!usuario) {
+        return <Navigate to="/" />;
+    }
+
+    if (usuario.TipoUsuarios !== props.tipoPermitido) {
+        return <Navigate to="/" />;
+    }
+    
+    return <props.Item/>;
+}
+
 
 const Rotas = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<Login/>} exact/>
-
-                <Route path="/Home" element={<Home/>} exact/>
-
-                <Route path="/TipoEvento" element={<CadastroTipoEvento/>}/>
-
-                <Route path="/Evento" element={<CadastroEvento/>}/>
-
-                <Route path="/Listagem" element={<ListagemEventos/>}/>
-
-                <Route path="/TipoUsuario" element={<CadastroTipoUsuario/>}/>
+                <Route element = {<Home/>} path="/" exact />
+                <Route element = {<Login/>} path="/Login" exact />
+                <Route element = {<ListagemEventos/>} path="/Evento" exact />
+                <Route element = {<Privado tipoPermitido="Administrador" Item={CadastroTipoEvento} />} path="/CadastroTpEvento" exact />
+                <Route element = {<Privado tipoPermitido="Administrador" Item={CadastroEvento} />} path="/CadastroEvento" exact />
+                <Route element = {<Privado tipoPermitido="Administrador" Item={CadastroTipoUsuario} />} path="/CadastroTpUsuario" exact />
             </Routes>
         </BrowserRouter>
     )

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "../../services/Services";
 import Swal from "sweetalert2";
-
 import Imagem from "../../assets/img/CadastroEvento.svg"
 import Cadastro from "../../components/cadastro/Cadastro";
 import Footer from "../../components/footer/Footer";
@@ -202,26 +201,20 @@ const CadastroEvento = () => {
                     valorInput={evento}
                     setValorInput={setEvento}
 
-                    //Cadastrar evento
                     funcCadastro={cadastrarEvento}
 
-                    // Obter data
                     valorData={dataEvento}
                     setValorData={setDataEvento}
 
-                    //Obter descricao 
                     valorInputDescricao={descricao}
                     setValorInputDescricao={setDescricao}
 
-                    // Obter TipoEvento 
                     valorTpEvento={tipoEvento}
                     setValorTpEvento={setTipoEvento}
 
-                    // Obter Instituições
                     valorInstituicao={instituicoes}
                     setValorInstituicao={setInstituicoes}
 
-                    // Listar TipoEvento
                     lista={listaTipoEvento}
                 />
 

@@ -1,4 +1,3 @@
-import React from "";
 import "./Toggle.css"
 
 const Toggle = (props) => {

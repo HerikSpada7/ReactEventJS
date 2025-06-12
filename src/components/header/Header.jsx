@@ -12,11 +12,11 @@ const Header = (props) => {
                 </Link>
 
                 <nav className="nav_header">
-                    <Link href="" className="link_header" to="/Home">Home</Link>
-                    <Link href="" className="link_header" to="/Evento">Eventos</Link>
-                    <Link href="" className="link_header" to="/TipoEvento">TpEvento</Link>
-                    <Link href="" className="link_header" to="/TipoUsuario">Usuários</Link>
-                    <Link href="" className="link_header" to="/Listagem">Listagem</Link>
+                    <Link href="" className="link_header" to="/">Home</Link>
+                    <Link href="" className="link_header" to="/CadastroEvento">Eventos</Link>
+                    <Link href="" className="link_header" to="/CadastroTpEvento">TpEvento</Link>
+                    <Link href="" className="link_header" to="/CadastroTpUsuario">TpUsuarios</Link>
+                    <Link href="" className="link_header" to="/Evento">Listagem</Link>
                 </nav>
 
                 <nav className="nav_img" style={{ display: props.visibilidade }}>
@@ -25,7 +25,7 @@ const Header = (props) => {
                 </nav>
 
                 <div className="login" style={{ display: props.botao_logar }}>
-                    <Link href="" to="/" className="logar">Logar</Link>
+                    <Link href="" to="/Login" className="logar">Logar</Link>
                 </div>
             </div>
         </header>
