@@ -1,21 +1,62 @@
-import React, { useEffect, useState } from 'react';
-import ImgDeletar from "../../assets/img/Excluir.svg"
-import api from "../../services/Services";
 import "./Modal.css"
+import api from "../../services/Services";
+import React, { useEffect, useState } from 'react';
+import Swal from "sweetalert2";
+
+import ImgDeletar from "../../assets/img/Excluir.svg"
 
 const Modal = (props) => {
     const [comentarios, setComentarios] = useState([]);
     const [novoComentario, setNovoComentario] = useState("");
-    const [usuarioId, setUsuarioId] = useState("3feffa48-7846-4f48-8c74-ec355e891680");
+
+    const [usuario, setUsuario] = useState("3feffa48-7846-4f48-8c74-ec355e891680")
+
+    function alertar(icone, mensagem) {
+        const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+            }
+        });
+        Toast.fire({
+            icon: icone,
+            title: mensagem
+        });
+    }
 
     async function listarComentarios() {
         try {
-            const resposta = await api.get(`ComentariosEventos/ListarSomenteExibe?id=${props.idEvento}`);
+            const resposta = await api.get(`ComentariosEventos/ListarSomenteExibe?id=${props.idEvento}`)
 
             setComentarios(resposta.data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
-            console.log(resposta);
+    async function cadastrarComentario(usuarioID, comentario) {
+        if (comentario.trim() !== "") {
+            try {
+                await api.post(`ComentariosEvento`, { descricao: comentario, idUsuario: usuarioID, idEvento: props.idEvento })
 
+                alertar("success", "Cadastro realizado com sucesso");
+            } catch (error) {
+                console.log(error);
+                alertar("error", "Erro! Entre em contato com o suporte!");
+            }
+        } else {
+            alertar("warning", "Preencha o campo!");
+        }
+    }
+
+    async function deletarComentario(idComentario) {
+        try {
+            await api.delete(`ComentariosEvento/${idComentario}`)
         } catch (error) {
             console.log(error);
         }
@@ -24,26 +65,6 @@ const Modal = (props) => {
     useEffect(() => {
         listarComentarios();
     }, [])
-
-    async function cadastrarComentario(comentario) {
-        try {
-            await api.post("ComentariosEvento", {
-                idUsuario: usuarioId,
-                idEvento: props.idEvento,
-                Descricao: comentario,
-            });
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-    async function deletarComentario(idComentario) {
-        try {
-            await api.delete(`ComentariosEvento/${idComentario}`)
-        } catch (error) {
-            console.log(error)
-        }
-    }
 
     return (
         <>
@@ -72,10 +93,13 @@ const Modal = (props) => {
                             <div>
                                 <input
                                     type="text"
-                                    placeholder="Escreva seu comentário..."
                                     value={novoComentario}
-                                    onChange={(e) => setNovoComentario(e.target.value)} />
-                                <button onClick={() => cadastrarComentario(novoComentario)}>
+                                    onChange={(e) => setNovoComentario(e.target.value)}
+                                    placeholder="Escreva seu comentário..." />
+
+                                <button
+                                    onClick={() => cadastrarComentario(usuario, novoComentario)}
+                                    className="botao">
                                     cadastrar
                                 </button>
                             </div>
