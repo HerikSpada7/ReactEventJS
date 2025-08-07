@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import api from "../../services/Services";
 import Swal from "sweetalert2";
-import Imagem from "../../assets/img/CadastroEvento.svg"
+
+import Imagem from "../../assets/img/cadastro.png"
 import Cadastro from "../../components/cadastro/Cadastro";
 import Footer from "../../components/footer/Footer";
 import Header from "../../components/header/Header";
@@ -47,17 +48,28 @@ const CadastroEvento = () => {
     async function cadastrarEvento(e) {
         e.preventDefault();
 
+        console.log(dataEvento);
+        console.log(evento);
+        console.log(descricao);
+        console.log(tipoEvento);
+        console.log(instituicoes);
+        
+
         if (evento.trim() !== "") {
             try {
-                const resposta = await api.post("Eventos", { DataEvento: dataEvento, NomeEvento: evento, Descricao: descricao, IdTipoEvento: tipoEvento, idInstituicao: instituicoes });
+                await api.post("eventos", {
+                    DataEvento: dataEvento,
+                    NomeEvento: evento, 
+                    Descricao: descricao,
+                    IdTipoEvento: tipoEvento,
+                    IdInstituicao: instituicoes
+                });
 
                 alertar("success", "Cadastro realizado com sucesso")
                 setEvento("");
                 setDataEvento("");
                 setDescricao("");
                 setTipoEvento("");
-
-                console.log(resposta)
 
             } catch (error) {
                 alertar("error", "Erro! Entre em contato com o suporte!")
@@ -116,11 +128,11 @@ const CadastroEvento = () => {
             const { value } = await Swal.fire({
                 title: "Editar Tipo de Evento",
                 html: `
-        <input id="campo1" class="swal2-input" placeholder="Título" value="${evento.nomeEvento || ''}">
-        <input id="campo2" class="swal2-input" type="date" value="${evento.dataEvento?.substring(0, 10) || ''}">
-        <select id="campo3" class="swal2-select">${tiposOptions}</select>
-        <input id="campo4" class="swal2-input" placeholder="Categoria" value="${evento.descricao || ''}">
-      `,
+            <input id="campo1" class="swal2-input" placeholder="Título" value="${evento.nomeEvento || ''}">
+            <input id="campo2" class="swal2-input" type="date" value="${evento.dataEvento?.substring(0, 10) || ''}">
+            <select id="campo3" class="swal2-select">${tiposOptions}</select>
+            <input id="campo4" class="swal2-input" placeholder="Categoria" value="${evento.descricao || ''}">
+            `,
                 showCancelButton: true,
                 confirmButtonText: "Salvar",
                 cancelButtonText: "Cancelar",
@@ -140,10 +152,6 @@ const CadastroEvento = () => {
                 }
             });
 
-            if (!value) {
-                console.log("Edição cancelada pelo usuário.");
-                return;
-            }
             await api.put(`eventos/${evento.idEvento}`, {
                 nomeEvento: value.campo1,
                 dataEvento: value.campo2,
@@ -151,32 +159,20 @@ const CadastroEvento = () => {
                 descricao: value.campo4,
             });
 
-            alertar("Atualizado!", "Dados salvos com sucesso.", "success");
+            alertar("success", "Dados salvos com sucesso.");
             listarEvento();
         } catch (error) {
-            alertar("Erro!", "Não foi possível atualizar.", "error");
+            alertar("error", "Não foi possível atualizar.");
         }
     }
 
-    async function exibirDescricao(id) {
-        try {
-            const resposta = await api.get("eventos");
-            const listateste = resposta.data;
-
-            listateste.forEach(element => {
-                if (element.idEvento === id) {
-                    setDescricao(element.descricao);
-                }
-            });
-            Swal.fire(descricao);
-            Swal.fire({
-                title: "Descrição Evento",
-                text: descricao,
-                icon: "success"
-            });
-        } catch (error) {
-            console.log(error);
-        }
+    async function exibirDescricao(item) {
+        Swal.fire({
+            title: 'Descrição do Evento',
+            text: item.descricao || "Nenhuma descrição disponível",
+            icon: 'info',
+            confirmButtonText: 'Fechar'
+        });
     }
 
     useEffect(() => {
@@ -187,8 +183,8 @@ const CadastroEvento = () => {
     return (
         <>
             <Header
-                user="Administrador"
                 botao_logar="none"
+                tpUsuario="Administrador"
             />
             <main>
                 <Cadastro
@@ -201,20 +197,26 @@ const CadastroEvento = () => {
                     valorInput={evento}
                     setValorInput={setEvento}
 
+                    //Cadastrar evento
                     funcCadastro={cadastrarEvento}
 
+                    // Obter data
                     valorData={dataEvento}
                     setValorData={setDataEvento}
 
+                    //Obter descricao 
                     valorInputDescricao={descricao}
                     setValorInputDescricao={setDescricao}
 
+                    // Obter TipoEvento 
                     valorTpEvento={tipoEvento}
                     setValorTpEvento={setTipoEvento}
 
+                    // Obter Instituições
                     valorInstituicao={instituicoes}
                     setValorInstituicao={setInstituicoes}
 
+                    // Listar TipoEvento
                     lista={listaTipoEvento}
                 />
 
@@ -227,6 +229,7 @@ const CadastroEvento = () => {
 
                     funcDeletar={deletarEvento}
                     funcEditar={editarEvento}
+
                     funcDescricao={exibirDescricao}
                 />
             </main>

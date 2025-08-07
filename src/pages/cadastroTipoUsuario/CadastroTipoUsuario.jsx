@@ -1,17 +1,19 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import api from "../../services/Services";
-import Swal from 'sweetalert2'
 
+//Importar o seu SweetAlert
+import Swal from 'sweetalert2';
 
-import Cadastro from "../../components/cadastro/Cadastro"
-import Footer from "../../components/footer/Footer"
-import Header from "../../components/header/Header"
-import Lista from "../../components/lista/Lista"
-import Banner from "../../assets/img/cadastroUser.svg"
+import Cadastro from "../../components/cadastro/Cadastro";
+import Footer from "../../components/footer/Footer";
+import Header from "../../components/header/Header";
+import Imagem from "../../assets/img/mulhermedia-removebg-preview (1).png"
+import Lista from "../../components/lista/Lista";
 
-const CadastrarTipoDeUsuario = () => {
-    const [tiposUsuarios, setTiposUsuario] = useState("");
+const CadastroTipoUsuario = () => {
     const [listaTipoUsuario, setListaTipoUsuario] = useState([])
+    const [tiposUsuarios, setTiposUsuario] = useState("");
+
 
     function alertar(icone, mensagem) {
         const Toast = Swal.mixin({
@@ -33,49 +35,59 @@ const CadastrarTipoDeUsuario = () => {
 
     async function cadastrarTipoUsuario(e) {
         e.preventDefault();
-        if (tiposUsuarios.trim() != "") {
 
+        if (tiposUsuarios.trim() !== "") {
             try {
-                await api.post("TipoUsuarios", { tituloTipoUsuario: tiposUsuarios });
-                alertar("success", "Cadastro realizado com sucesso!")
-                setTiposUsuario("")
+                await api.post("tiposUsuarios", { TituloTipoUsuario: tiposUsuarios });
+
+                alertar("success", "Cadastro realizado com sucesso");
+                setTiposUsuario("");
             } catch (error) {
-                alertar("error", "Erro! entre em contato com o suporte")
+                alertar("error", "Erro! Entre em contato com o suporte!");
+                console.log(error);
             }
         } else {
-            alertar("error", "Preencha o campo vazio")
+            alertar("warning", "Preencha o campo!");
         }
-
     }
 
     async function listarTipoUsuario() {
         try {
-            const resposta = await api.get("TipoUsuarios");
-
-
+            const resposta = await api.get("TiposUsuarios");
             setListaTipoUsuario(resposta.data);
-            console.log(resposta.data);
-
         } catch (error) {
-            console.log(error);
+            console.log(console.error);
         }
     }
 
-    async function removerTipoUsuario(id) {
-        try {
-            const excluirTipoUsuario = await api.delete(`TipoUsuarios/${id.idTipoUsuario}`)
-            setListaTipoUsuario(excluirTipoUsuario.data)
-        }
-        catch (error) {
-            console.log(error)
-        }
+    async function deletarTipoUsuario(id) {
+        Swal.fire({
+            title: 'Tem Certeza?',
+            text: "Essa ação não poderá ser desfeita!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#B51D44',
+            cancelButtonColor: '#000000',
+            confirmButtonText: 'Sim, apagar!',
+            cancelButtonText: 'Cancelar',
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                await api.delete(`tiposUsuarios/${id.idTipoUsuario}`);
+                alertar("success", "TipoUsuario Excluido!");
+            }
+        }).catch(error => {
+            console.log(error);
+            alertar("error", "Erro ao Excluir!");
+        })
     }
 
     async function editarTipoUsuario(tiposUsuarios) {
         const { value: novoTipoUsuario } = await Swal.fire({
-            title: "Modifique seu Tipo de Usuario",
+            title: "Modifique seu Tipo Usuario",
             input: "text",
-            inputLabel: "Novo Tipo Evento",
+            confirmButtonColor: '#B51D44',
+            cancelButtonColor: '#000000',
+            inputLabel: "Novo Tipo Usuario",
             inputValue: tiposUsuarios.tituloTipoUsuario,
             showCancelButton: true,
             inputValidator: (value) => {
@@ -84,33 +96,35 @@ const CadastrarTipoDeUsuario = () => {
                 }
             }
         });
-
         if (novoTipoUsuario) {
             try {
-                api.put(`TipoUsuarios/${tiposUsuarios.idTipoUsuario}`, { tituloTipoUsuario: novoTipoUsuario })
-                Swal.fire(`O Tipo novo é ${novoTipoUsuario}`);
-                listaTipoUsuario();
+                await api.put(`tiposUsuarios/${tiposUsuarios.idTipoUsuario}`,
+                    { tituloTipoUsuario: novoTipoUsuario });
+                alertar("success", "Tipo Evento Modificado!")
             } catch (error) {
 
             }
+            Swal.fire(`Seu novo Tipo Evento: ${novoTipoUsuario}`);
         }
     }
 
     useEffect(() => {
         listarTipoUsuario();
     }, [listaTipoUsuario])
+
+
     return (
         <>
             <Header
-                user="Administrador"
                 botao_logar="none"
+                tpUsuario="Administrador"
             />
             <main>
                 <Cadastro
                     titulo_cadastro="Cadastro de Tipo Usuário"
                     campo_placeholder="Titulo"
                     botao="Cadastrar"
-                    banner_img={Banner}
+                    banner_img={Imagem}
 
                     visibilidade="none"
                     visibilidade_data="none"
@@ -132,9 +146,10 @@ const CadastrarTipoDeUsuario = () => {
                     tipoLista="tiposUsuarios"
                     lista={listaTipoUsuario}
 
-                    funcDeletar={removerTipoUsuario}
+                    funcDeletar={deletarTipoUsuario}
                     funcEditar={editarTipoUsuario}
                     visibilidade2="none"
+                    visibi_del_edit="none"
                 />
             </main>
             <Footer />
@@ -142,4 +157,4 @@ const CadastrarTipoDeUsuario = () => {
     )
 }
 
-export default CadastrarTipoDeUsuario;
+export default CadastroTipoUsuario;

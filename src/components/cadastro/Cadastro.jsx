@@ -16,6 +16,7 @@ const Cadastro = (props) => {
 
                 <div className="campos_cadastro">
 
+                    {/* nome evento */}
                     <div className="campo_cad_nome">
                         <input
                             type="text"
@@ -25,6 +26,7 @@ const Cadastro = (props) => {
                         />
                     </div>
 
+                    {/* data evento */}
                     <div className="campo_cad_nome">
                         <input
                             style={{ display: props.visibilidade_data }}
@@ -34,6 +36,7 @@ const Cadastro = (props) => {
                         />
                     </div>
 
+                    {/* tipo evento */}
                     <div className="campo_cad_eventos" style={{ display: props.visibilidade_tp_evento }}>
                         <select name="Tipo Evento"
                             value={props.valorTpEvento}
@@ -48,6 +51,7 @@ const Cadastro = (props) => {
                         </select>
                     </div>
 
+                    {/* Instituição */}
                     <div className="campo_cad_eventos" style={{ display: props.visibilidade_instituicao }}>
                         <select name="Instituicao"
                             value={props.valorInstituicao}
@@ -57,6 +61,7 @@ const Cadastro = (props) => {
                         </select>
                     </div>
 
+                    {/* Descrição evento */}
                     <div className="campo_cad_nome">
                         <input
                             type="text"

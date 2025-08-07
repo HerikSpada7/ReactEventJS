@@ -1,82 +1,81 @@
-.main_login{
+.main_login {
     display: flex;
     height: 100vh;
-    background-color: #B51D44;
+    background-color: #0e2a48;
 }
 
-.logo_banner{
-
-    flex: 1;
-
+.banner {
+    width: 50%;
+    background-color: rgb(236, 236, 236);
+    background-image: url("../../assets/img/azulNovoHomemA-removebg-preview.png");
     background-position: center;
-    background-size: contain;
     background-repeat: no-repeat;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    clip-path: polygon(0 0, 100% 0, 40% 400%, 0% 400%);
 }
 
-.logo_banner img{
-    width: 470px;
-}
-
-
- .section_login{
+.section_login {
     flex: 1;
-    background-color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
- }
+}
 
- .form_login{
-    color: white;
+.section_login img {
+    width: 400px;
+}
 
-    width: 50%;
+.form_login {
+    color: black;
+
     height: 50%;
-
+    width: 49%;
     display: flex;
     justify-content: space-around;
-    justify-content: center;
     align-items: center;
     flex-direction: column;
 }
 
-.campos_login{
-    width: 100%;
+.form_login a {
+    text-decoration: none;
+    color: #A6A0A0;
+    font-size: 12px;
 }
 
-
-.campo_input{
+.campos_login {
+    width: 100%;
+    margin-top: 40px;
     display: flex;
     flex-direction: column;
-    margin-bottom: 50px;
+    align-items: center;
 }
 
-.campo_input input{
-    height: 30px;
+.campo_input {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+    color: aqua;
+}
 
-
+.campo_input input {
+    height: 28px;
     padding: 0 10px;
-
+    background-color: #0e2a48;
     border-top: none;
     border-left: none;
     border-right: none;
-    border-color: #B4A9A9;
-
     outline: none;
-    color: #B4A9A9;
-}
-
-.form_login a{
-    margin-bottom: 40px;
-    color: #A6A0A0;
-    text-decoration: none;
+    color: aliceblue;
 }
 
 @media screen and (max-width: 768px) {
-    .logo_banner{
+    .banner {
         display: none;
+    }
+
+    .section_login img {
+        width: 250px;
     }
 }

@@ -17,10 +17,12 @@
 
 .proximos_eventos {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
+    width: 100%;
 }
+
+
 
 .titulo {
     display: flex;
@@ -37,20 +39,14 @@
 
 .titulo hr {
     width: 125px;
-    border: #b51d44 solid 1px;
+    border: #0e2a48 solid 1px;
     margin-bottom: 50px;
-}
-
-.lista_eventos {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
 }
 
 .item {
     width: 250px;
     height: 250px;
-    border: solid #b51d44 2px;
+    border: solid #0e2a48 2px;
     border-radius: 5px;
     padding: 30px;
     margin-bottom: 60px;
@@ -60,7 +56,10 @@
     justify-content: space-between;
     align-items: center;
     text-align: center;
+    margin-right: 20px;
 }
+
+
 
 .item h1 {
     font-size: 18px;
@@ -75,7 +74,7 @@
     border: none;
     background-color: white;
     font-size: 18px;
-    color: #B51D44;
+    color: #0e2a48;
 }
 
 .visao img {
@@ -104,7 +103,7 @@
 
 .titulo_2 hr {
     width: 125px;
-    border: #b51d44 solid 1px;
+    border: #0e2a48 solid 1px;
     margin-bottom: 50px;
 }
 

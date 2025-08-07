@@ -1,85 +1,121 @@
 .listagem {
-    /* height: 370px; */
-
+    background-color: #0e2a48;
+    min-height: calc(100vh - (75px + 399px + 40px));
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 40px 0;
-
-    background-color: #B51D44;
-    color: white;
-
 }
 
 .listagem h1 {
-    text-transform: uppercase;
     color: white;
-    font-size: 19px;
+    font-size: 20px;
+    font-weight: 500;
 }
 
-.listagem hr {
-    max-width: 200px;
+.linha_titulo {
+    max-width: 150px;
     width: 100%;
     border-style: solid;
-    border-top-width: 1px;
+    border-width: 1px;
     border-color: white;
     margin-top: 5px;
-    color: white;
+    margin-bottom: 20px;
 }
 
 .item_lista img {
-    height: 20px;
+    height: 15px;
 }
 
 .tabela {
-    width: 80%;
-    margin-top: 40px;
-
-    text-align: center;
-    border-bottom: 1px solid white;
-
-    margin-left: -60px;
-  
-
+    width: 100%;
+    margin-top: 30px;
 }
 
+.tabela table {
+    width: 100%;
+    border-collapse: collapse;
+}
 
-.tabela .table_cabecalho :first-child {
+.tabela_cabecalho :first-child {
     width: 300px;
-    
 }
 
-.tabela .table_cabecalho :nth-child(2) {
-    /* width: 750px; */
-    text-align: start;
+.tabela_cabecalho :nth-child(2) {
+    width: 200px;
 }
 
-.tabela .table_cabecalho th {
-    border-bottom: 1px solid white;
-    width: 600px;
-    margin-top: 40px;
-    
+.tabela_cabecalho :nth-child(3) {
+    width: 200px;
+}
+
+.tabela_cabecalho th {
+    width: 100px;
+    font-weight: 500;
 }
 
 .item_lista td {
-    padding: 30px 5px 30px;
-    
+    padding: 20px 0 10px 0;
+    color: white;
 }
 
-.tabela .item_lista :nth-child(2){
-    text-align: start;
-    
+.item_lista {
+    text-align: center;
+    border-bottom: solid 1px #73061B20;
+    justify-content: flex-start;
 }
 
-@media screen and (max-width:728px) {
-    .tabela{
-        font-size: 10px; 
+.item_lista td {
+    font-weight: 400;
+}
+
+.tabela_cabecalho th {
+    color: white;
+    font-size: medium;
+    padding-bottom: 5px;
+}
+
+.tabela_cabecalho {
+    border-bottom: white 1px solid;
+}
+
+.item_lista {
+    border-bottom: white 1px solid;
+}
+
+
+@media screen and (max-width: 768px) {
+
+    .tabela thead {
+        display: none;
     }
-    .tabela .item_lista :nth-child(3){
-        width: 110px;
+
+
+    .item_lista td {
+        display: grid;
+        text-align: left;
+        padding: 10px 10px 10px 0;
+        grid-template-columns: 10ch auto;
+
     }
-    .listagem h1 {
-        font-size: large;
+
+
+    .item_lista td::before {
+        content: attr(data-cell) ":";
+        font-weight: 600;
+        width: 80px;
+        text-align: left;
     }
-    
+
+    .item_lista td:last-child {
+        margin-bottom: 24px;
+    }
+
+    .item_lista td:first-child {
+        margin-top: 24px;
+    }
+}
+
+.botao_edicao img {
+    cursor: pointer;
 }
